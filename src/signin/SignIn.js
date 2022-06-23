@@ -6,7 +6,7 @@ import {
   getCategoriesAndDocument,
   signInWithGooglePopup,
 } from "../firebase/firebase-config";
-import { createUserDocumentFromAuth } from "../firebase/firebase-config";
+// import { createUserDocumentFromAuth } from "../firebase/firebase-config";
 import { addCollectionAndDocuments, auth } from "../firebase/firebase-config";
 import React, { useEffect, useState } from "react";
 import { DATA } from "../data";
