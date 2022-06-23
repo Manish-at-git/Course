@@ -70,7 +70,7 @@ export const DATA = [
     ],
   },
   {
-    title: "watch",
+    title: "",
     items: [
       {
         id: 1,
