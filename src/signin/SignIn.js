@@ -4,7 +4,7 @@ import {
 } from "../firebase/firebase-config";
 import { createUserDocumentFromAuth } from "../firebase/firebase-config";
 import { addCollectionAndDocuments } from "../firebase/firebase-config";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { DATA } from "../data";
 
 const logGoogleUser = async () => {
@@ -14,19 +14,41 @@ const logGoogleUser = async () => {
 };
 
 function SignIn() {
+  const [products, setProducts] = useState();
   useEffect(() => {
     addCollectionAndDocuments("categories", DATA);
   }, []);
   useEffect(() => {
     const getCategoriesMap = async () => {
       const categoryMap = await getCategoriesAndDocument();
+      setProducts(categoryMap);
       console.log(categoryMap);
     };
     getCategoriesMap();
   }, []);
   return (
     <div>
-      <h2>sign in page</h2>
+      {/* {console.log(typeof products)} */}
+      {products
+        ? Object.keys(products).map((item) => (
+            <>
+              <h2>{item}</h2>
+              <div>
+                {products[item].map((product) => (
+                  <>
+                    {Object.values(product).map((property) => (
+                      <>
+                        <div>{property}</div>
+                      </>
+                    ))}
+                    {/* {console.log(product)} */}
+                    <br />
+                  </>
+                ))}
+              </div>
+            </>
+          ))
+        : null}
       <button onClick={logGoogleUser}>sign in</button>
     </div>
   );
