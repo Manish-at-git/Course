@@ -1,9 +1,13 @@
+import { SignInContainer, ItemContainer } from "./signin.style";
+
+import { signOut } from "firebase/auth";
+
 import {
   getCategoriesAndDocument,
   signInWithGooglePopup,
 } from "../firebase/firebase-config";
 import { createUserDocumentFromAuth } from "../firebase/firebase-config";
-import { addCollectionAndDocuments } from "../firebase/firebase-config";
+import { addCollectionAndDocuments, auth } from "../firebase/firebase-config";
 import React, { useEffect, useState } from "react";
 import { DATA } from "../data";
 
@@ -12,6 +16,8 @@ const logGoogleUser = async () => {
   const userDocRef = await createUserDocumentFromAuth(user);
   console.log(user);
 };
+
+const logOut = async () => {};
 
 function SignIn() {
   const [products, setProducts] = useState();
@@ -27,11 +33,11 @@ function SignIn() {
     getCategoriesMap();
   }, []);
   return (
-    <div>
+    <SignInContainer>
       {/* {console.log(typeof products)} */}
       {products
         ? Object.keys(products).map((item) => (
-            <>
+            <ItemContainer>
               <h2>{item}</h2>
               <div>
                 {products[item].map((product) => (
@@ -46,11 +52,18 @@ function SignIn() {
                   </>
                 ))}
               </div>
-            </>
+            </ItemContainer>
           ))
         : null}
       <button onClick={logGoogleUser}>sign in</button>
-    </div>
+      <button
+        onClick={() => {
+          signOut(auth);
+        }}
+      >
+        sign Out
+      </button>
+    </SignInContainer>
   );
 }
 
