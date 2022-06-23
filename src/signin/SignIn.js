@@ -13,11 +13,11 @@ import { DATA } from "../data";
 
 const logGoogleUser = async () => {
   const { user } = await signInWithGooglePopup();
-  const userDocRef = await createUserDocumentFromAuth(user);
+  //   const userDocRef = await createUserDocumentFromAuth(user);
   console.log(user);
 };
 
-const logOut = async () => {};
+// const logOut = async () => {};
 
 function SignIn() {
   const [products, setProducts] = useState();
